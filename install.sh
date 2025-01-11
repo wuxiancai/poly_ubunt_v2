@@ -94,7 +94,7 @@ mkdir -p "$HOME/ChromeDebug"
 
 # 创建启动脚本
 echo "创建启动脚本..."
-sudo cat > start_chrome.sh << 'EOL'
+cat > start_chrome.sh << 'EOL'
 #!/bin/bash
 # 检查是否已经运行
 if pgrep -f "chromium-browser.*remote-debugging-port=9222" > /dev/null; then
@@ -106,27 +106,28 @@ fi
 chromium-browser \
     --remote-debugging-port=9222 \
     --user-data-dir="$HOME/ChromeDebug" \
-    --no-sandbox \
     --disable-dev-shm-usage \
     --disable-gpu \
     --disable-software-rasterizer \
+    --enable-logging \
+    --v=1 \
     https://polymarket.com/markets/crypto
 EOL
 
-sudo chmod +x start_chrome.sh
+chmod +x start_chrome.sh
 
 # 创建程序启动脚本
-sudo cat > run_trader.sh << 'EOL'
+cat > run_trader.sh << 'EOL'
 #!/bin/bash
 cd "$(dirname "$0")"
 source venv/bin/activate
 python3 crypto_trader.py
 EOL
 
-sudo chmod +x run_trader.sh
+chmod +x run_trader.sh
 
 # 创建环境变量配置文件
-sudo cat > .env << 'EOL'
+cat > .env << 'EOL'
 DISPLAY=:0
 PYTHONPATH=$PYTHONPATH:$HOME/polymarket_trader
 EOL
