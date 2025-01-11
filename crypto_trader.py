@@ -1337,24 +1337,21 @@ class CryptoTrader:
             if not self.driver:
                 chrome_options = Options()
                 chrome_options.debugger_address = "127.0.0.1:9222"
-                
-                # Linux 特定配置
-                chrome_options.add_argument('--no-sandbox')
                 chrome_options.add_argument('--disable-dev-shm-usage')
                 chrome_options.add_argument('--disable-gpu')
                 chrome_options.add_argument('--disable-software-rasterizer')
                 
-                # 对于 Wayland 显示服务器的配置
-                if os.environ.get('WAYLAND_DISPLAY'):
-                    chrome_options.add_argument('--enable-features=UseOzonePlatform')
-                    chrome_options.add_argument('--ozone-platform=wayland')
-                    try:
-                        self.driver = webdriver.Chrome(options=chrome_options)
-                        self.update_status("连接到浏览器")
-                    except Exception as e:
-                        self.logger.error(f"连接浏览器失败: {str(e)}")
-                        self._show_error_and_reset("无法连接Chrome浏览器，请确保已运行start_chrome.sh")
-                        return
+                try:
+                    # 直接使用系统安装的 ChromeDriver
+                    self.driver = webdriver.Chrome(
+                        executable_path='/usr/bin/chromedriver',  # 明确指定 ChromeDriver 路径
+                        options=chrome_options
+                    )
+                    self.update_status("连接到浏览器")
+                except Exception as e:
+                    self.logger.error(f"连接浏览器失败: {str(e)}")
+                    self._show_error_and_reset("无法连接Chrome浏览器，请确保已运行start_chrome.sh")
+                    return
             try:
                 # 在当前标签页打开URL
                 self.driver.get(new_url)
