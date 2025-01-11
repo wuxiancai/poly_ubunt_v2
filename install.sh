@@ -11,11 +11,6 @@ fi
 
 echo "开始安装 Polymarket Trader 环境..."
 
-# 创建工作目录
-WORK_DIR="$HOME/polymarket_trader"
-sudo mkdir -p "$WORK_DIR"
-cd "$WORK_DIR"
-
 echo "正在安装系统依赖..."
 # 安装系统依赖
 sudo apt-get update
@@ -99,7 +94,7 @@ sudo mkdir -p "$HOME/ChromeDebug"
 
 # 创建启动脚本
 echo "创建启动脚本..."
-cat > start_chrome.sh << 'EOL'
+sudo cat > start_chrome.sh << 'EOL'
 #!/bin/bash
 # 检查是否已经运行
 if pgrep -f "chromium-browser.*remote-debugging-port=9222" > /dev/null; then
@@ -118,20 +113,20 @@ chromium-browser \
     https://polymarket.com/markets/crypto
 EOL
 
-chmod +x start_chrome.sh
+sudo chmod +x start_chrome.sh
 
 # 创建程序启动脚本
-cat > start_trader.sh << 'EOL'
+sudo cat > start_trader.sh << 'EOL'
 #!/bin/bash
 cd "$(dirname "$0")"
 source venv/bin/activate
 python3 crypto_trader.py
 EOL
 
-chmod +x run_trader.sh
+sudo chmod +x run_trader.sh
 
 # 创建环境变量配置文件
-cat > .env << 'EOL'
+sudo cat > .env << 'EOL'
 DISPLAY=:0
 PYTHONPATH=$PYTHONPATH:$HOME/polymarket_trader
 EOL
