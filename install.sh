@@ -13,7 +13,7 @@ echo "开始安装 Polymarket Trader 环境..."
 
 # 创建工作目录
 WORK_DIR="$HOME/polymarket_trader"
-mkdir -p "$WORK_DIR"
+sudo mkdir -p "$WORK_DIR"
 cd "$WORK_DIR"
 
 echo "正在安装系统依赖..."
@@ -95,7 +95,7 @@ fi
 
 # 创建配置目录
 echo "创建配置目录..."
-mkdir -p "$HOME/ChromeDebug"
+sudo mkdir -p "$HOME/ChromeDebug"
 
 # 创建启动脚本
 echo "创建启动脚本..."
@@ -128,7 +128,7 @@ source venv/bin/activate
 python3 crypto_trader.py
 EOL
 
-chmod +x start_trader.sh
+chmod +x run_trader.sh
 
 # 创建环境变量配置文件
 cat > .env << 'EOL'
