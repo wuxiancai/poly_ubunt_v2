@@ -1333,24 +1333,22 @@ class CryptoTrader:
         """在新线程中执行浏览器操作"""
         try:
             self.update_status(f"正在尝试访问: {new_url}")
-            
             if not self.driver:
                 chrome_options = Options()
                 chrome_options.debugger_address = "127.0.0.1:9222"
-                chrome_options.add_argument('--disable-dev-shm-usage')
-                chrome_options.add_argument('--disable-gpu')
-                chrome_options.add_argument('--disable-software-rasterizer')
-                
                 try:
-                    # 直接使用系统安装的 ChromeDriver
-                    self.driver = webdriver.Chrome(
-                        executable_path='/usr/bin/chromedriver',  # 明确指定 ChromeDriver 路径
-                        options=chrome_options
-                    )
-                    self.update_status("连接到浏览器")
+                    self.driver = webdriver.Chrome(options=chrome_options)
+                    self.update_status("成功连接到浏览器")
                 except Exception as e:
-                    self.logger.error(f"连接浏览器失败: {str(e)}")
+                    self.logger.error(f"连接浏览器详细错误: {str(e)}")
                     self._show_error_and_reset("无法连接Chrome浏览器，请确保已运行start_chrome.sh")
+                    return 
+                try:
+                    self.driver.get(new_url)
+                    self.update_status(f"成功访问: {new_url}")
+                except Exception as e:
+                    self.logger.error(f"访问URL失败: {str(e)}")
+                    self._show_error_and_reset(f"访问 {new_url} 失败")
                     return
             try:
                 # 在当前标签页打开URL
