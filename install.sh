@@ -90,7 +90,7 @@ fi
 
 # 创建配置目录
 echo "创建配置目录..."
-sudo mkdir -p "$HOME/ChromeDebug"
+mkdir -p "$HOME/ChromeDebug"
 
 # 创建启动脚本
 echo "创建启动脚本..."
