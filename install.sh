@@ -116,7 +116,7 @@ EOL
 sudo chmod +x start_chrome.sh
 
 # 创建程序启动脚本
-sudo cat > start_trader.sh << 'EOL'
+sudo cat > run_trader.sh << 'EOL'
 #!/bin/bash
 cd "$(dirname "$0")"
 source venv/bin/activate
