@@ -120,6 +120,12 @@ class CryptoTrader:
         # 添加登录状态监控定时器
         self.login_check_timer = None
 
+    
+    def select_all(self, event):
+        # 在CryptoTrader类中添加select_all方法
+        event.widget.select_range(0, 'end')
+        return "break"
+
     def load_config(self):
         """加载配置文件，保持默认格式"""
         try:
@@ -434,6 +440,8 @@ class CryptoTrader:
         # 创建下拉列和输入框组合控件
         self.url_entry = ttk.Combobox(url_frame, width=72)
         self.url_entry.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
+        # 添加这一行来绑定Ctrl+A事件
+        self.url_entry.bind('<Control-a>', lambda e:  self.select_all(e))
         
         # 从配置文件加载历史记录
         if 'url_history' not in self.config:
