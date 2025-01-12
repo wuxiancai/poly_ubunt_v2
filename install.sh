@@ -88,32 +88,6 @@ if [ "$CHROME_VERSION" != "$CHROMEDRIVER_VERSION" ]; then
     sudo apt-get install --reinstall chromium-chromedriver
 fi
 
-# 创建配置目录
-echo "创建配置目录..."
-mkdir -p "$HOME/ChromeDebug"
-
-# 创建启动脚本
-echo "创建启动脚本..."
-cat > start_chrome.sh << 'EOL'
-#!/bin/bash
-# 检查是否已经运行
-if pgrep -f "chromium-browser.*remote-debugging-port=9222" > /dev/null; then
-    echo "Chrome 调试实例已经在运行"
-    exit 1
-fi
-
-# 启动 Chrome
-chromium-browser \
-    --remote-debugging-port=9222 \
-    --user-data-dir="$HOME/ChromeDebug" \
-    --disable-dev-shm-usage \
-    --disable-gpu \
-    --disable-software-rasterizer \
-    --enable-logging \
-    --v=1 \
-    https://polymarket.com/markets/crypto
-EOL
-
 chmod +x start_chrome.sh
 
 # 创建程序启动脚本
