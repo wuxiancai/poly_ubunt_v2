@@ -107,9 +107,9 @@ class CryptoTrader:
         # 检查是否是重启
         self.is_restart = '--restart' in sys.argv
         
-        # 如果是重启,延迟2秒后自动点击开始监控
+        """# 如果是重启,延迟2秒后自动点击开始监控
         if self.is_restart:
-            self.root.after(2000, self.auto_start_monitor)
+            self.root.after(2000, self.auto_start_monitor)"""
         
         # 添加当前监控网址的属性
         self.current_url = ''
@@ -481,6 +481,12 @@ class CryptoTrader:
                                              style='Black.TButton')  # 默认使用黑色文字
         self.update_amount_button.pack(side=tk.LEFT, padx=5)
         self.update_amount_button['state'] = 'disabled'  # 初始禁用
+
+        # 添加程序重启按钮
+        self.restart_button = ttk.Button(button_frame, text="重启程序", 
+                                         command=self.restart_program, width=10,
+                                         style='Black.TButton')  # 默认使用黑色文字
+        self.restart_button.pack(side=tk.LEFT, padx=5)
 
         # 添加价格按钮
         prices = ['0.52', '0.53', '0.54']
