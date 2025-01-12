@@ -418,7 +418,7 @@ class CryptoTrader:
         for i in range(8):
             settings_container.grid_columnconfigure(i, weight=1)
         # 设置窗口大小和位置
-        window_width = 720
+        window_width = 750
         window_height = 900
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
@@ -448,6 +448,19 @@ class CryptoTrader:
         # 控制按钮区域
         button_frame = ttk.Frame(scrollable_frame)
         button_frame.pack(fill="x", padx=5, pady=5)
+
+        # 修改样式定义
+        style = ttk.Style()
+        # 确保使用默认主题
+        style.theme_use('default')
+        # 使用map来处理不同状态下的样式
+        style.map('Red.TButton',
+            foreground=[('disabled', 'red'), ('active', 'red'), ('!disabled', 'red')],
+            background=[('disabled', '!focus', 'SystemButtonFace')]
+        )
+        style.map('Black.TButton',
+            foreground=[('disabled', 'black'), ('active', 'black'), ('!disabled', 'black')]
+        )
         
         # 开始和停止按钮
         self.start_button = ttk.Button(button_frame, text="开始监控", 
