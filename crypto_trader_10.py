@@ -344,7 +344,7 @@ class CryptoTrader:
         # 初始金额设置
         ttk.Label(settings_container, text="初始金额(%):").grid(row=0, column=0, padx=(5,0), pady=5)
         self.initial_amount_entry = ttk.Entry(settings_container, width=3)
-        self.initial_amount_entry.insert(0, "11")
+        self.initial_amount_entry.insert(0, "17.3")
         self.initial_amount_entry.grid(row=0, column=1, padx=(0,5), pady=5)
         
         # 反水一次设置
@@ -362,13 +362,13 @@ class CryptoTrader:
         # 利润率设置
         ttk.Label(settings_container, text="利润率(%):").grid(row=0, column=6, padx=(5,0), pady=5)
         self.profit_rate_entry = ttk.Entry(settings_container, width=3)
-        self.profit_rate_entry.insert(0, "11")
+        self.profit_rate_entry.insert(0, "18")
         self.profit_rate_entry.grid(row=0, column=7, padx=(0,5), pady=5)
 
         # 翻倍周数
         ttk.Label(settings_container, text="周翻倍", style='Red.TLabel').grid(row=0, column=9, padx=(0,5), pady=5)
         self.doubling_weeks_entry = ttk.Entry(settings_container, width=2, style='Red.TEntry')
-        self.doubling_weeks_entry.insert(0, "6")
+        self.doubling_weeks_entry.insert(0, "4")
         self.doubling_weeks_entry.grid(row=0, column=8, padx=(5,0), pady=5)
         
         # 交易次数
