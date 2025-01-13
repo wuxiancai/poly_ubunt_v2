@@ -12,7 +12,6 @@ CHROME_ARGS=(
     --user-data-dir="$CHROME_USER_DIR"
     --disable-gpu
     --disable-features=IsolateOrigins,site-per-process
-    https://polymarket.com/markets/crypto
 )
 
 # 检查Chrome进程

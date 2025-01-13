@@ -91,14 +91,27 @@ fi
 chmod +x start_chrome.sh
 
 # 创建程序启动脚本
-cat > run_trader.sh << 'EOL'
+cat > 10.sh << 'EOL'
 #!/bin/bash
 cd "$(dirname "$0")"
 source venv/bin/activate
-python3 crypto_trader.py
+python3 crypto_trader_10.py
 EOL
-
-chmod +x run_trader.sh
+cat > 12.sh << 'EOL'
+#!/bin/bash
+cd "$(dirname "$0")"
+source venv/bin/activate
+python3 crypto_trader_12.py
+EOL
+cat > 14.sh << 'EOL'
+#!/bin/bash
+cd "$(dirname "$0")"
+source venv/bin/activate
+python3 crypto_trader_14.py
+EOL
+chmod +x 10.sh
+chmod +x 12.sh
+chmod +x 14.sh
 
 # 创建环境变量配置文件
 cat > .env << 'EOL'
