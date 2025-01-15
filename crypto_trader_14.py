@@ -6255,6 +6255,65 @@ class CryptoTrader:
             amount=0.0,  # 卖出时金额为总持仓
             trade_count=self.sell_count  # 使用卖出计数器
         )
+
+    def first_sell_yes(self):
+        """只卖出YES"""
+        self.position_sell_yes_button.invoke()
+        time.sleep(0.5)
+        self.sell_profit_button.invoke()
+        self.first_sell_refresh("first_sell_yes")
+        # 验证交易是否成功
+        if self.Verify_trade_yes():
+            self.logger.warning("卖出验证失败，重试")
+            return self.first_sell_yes()
+        
+        # 增加卖出计数
+        self.sell_count += 1
+            
+        # 发送交易邮件 - 卖出YES
+        self.send_trade_email(
+            trade_type="Sell Yes Final",
+            price=0.0,
+            amount=0.0,  # 卖出时金额为总持仓
+            trade_count=self.sell_count  # 使用卖出计数器
+        )
+
+    def first_sell_no(self):
+        """只卖出NO"""
+        self.position_sell_no_button.invoke()
+        time.sleep(0.5)
+        self.sell_profit_button.invoke()
+        self.first_sell_refresh("first_sell_no")
+        # 验证交易是否成功
+        if self.Verify_trade_no():
+            self.logger.warning("卖出验证失败，重试")
+            return self.first_sell_no()
+        
+        # 增加卖出计数
+        self.sell_count += 1
+            
+        # 发送交易邮件 - 卖出NO
+        self.send_trade_email(
+            trade_type="Sell No Final",
+            price=0.0,
+            amount=0.0,  # 卖出时金额为总持仓
+            trade_count=self.sell_count  # 使用卖出计数器
+        )
+
+    def first_sell_refresh(self, operation_name="未指定操作"):
+        """
+        执行等待3秒并刷新页面的操作,重复3次
+        
+        Args:
+            operation_name (str): 操作名称,用于日志记录
+        """
+        try:
+            for i in range(3):  # 重复次数，修改数字即可
+                self.logger.info(f"{operation_name} - 等待3秒后刷新页面 ({i+1}/3)")
+                time.sleep(3)  # 等待3秒
+                self.driver.refresh()  # 刷新页面       
+        except Exception as e:
+            self.logger.error(f"{operation_name} - first_sell_refresh操作失败: {str(e)}")
           
     def send_trade_email(self, trade_type, price, amount, trade_count):
         """发送交易邮件"""

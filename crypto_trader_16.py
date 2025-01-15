@@ -344,7 +344,7 @@ class CryptoTrader:
         # 初始金额设置
         ttk.Label(settings_container, text="初始金额(%):").grid(row=0, column=0, padx=(5,0), pady=5)
         self.initial_amount_entry = ttk.Entry(settings_container, width=3)
-        self.initial_amount_entry.insert(0, "13.2")
+        self.initial_amount_entry.insert(0, "11")
         self.initial_amount_entry.grid(row=0, column=1, padx=(0,5), pady=5)
         
         # 反水一次设置
@@ -362,13 +362,13 @@ class CryptoTrader:
         # 利润率设置
         ttk.Label(settings_container, text="利润率(%):").grid(row=0, column=6, padx=(5,0), pady=5)
         self.profit_rate_entry = ttk.Entry(settings_container, width=3)
-        self.profit_rate_entry.insert(0, "14")
+        self.profit_rate_entry.insert(0, "11")
         self.profit_rate_entry.grid(row=0, column=7, padx=(0,5), pady=5)
 
         # 翻倍周数
         ttk.Label(settings_container, text="周翻倍", style='Red.TLabel').grid(row=0, column=9, padx=(0,5), pady=5)
         self.doubling_weeks_entry = ttk.Entry(settings_container, width=2, style='Red.TEntry')
-        self.doubling_weeks_entry.insert(0, "5")
+        self.doubling_weeks_entry.insert(0, "6")
         self.doubling_weeks_entry.grid(row=0, column=8, padx=(5,0), pady=5)
         
         # 交易次数
@@ -2231,7 +2231,7 @@ class CryptoTrader:
         except Exception as e:
             self.logger.error(f"Amount操作失败: {str(e)}")
             self.update_status(f"Amount操作失败: {str(e)}")
-        
+    
     def First_trade(self):
         """处理Yes0/No0的自动交易"""
         try:
@@ -3432,8 +3432,7 @@ class CryptoTrader:
                 # 检查Yes9价格匹配
                 if 0 <= (yes_price - yes9_target ) <= 0.04 and yes9_target > 0:
                     self.logger.info("Yes 9价格匹配,执行自动交易")
-                    # 卖出 NO
-                    self.first_sell_no()
+                    
                     # 执行交易操作
                     self.amount_yes9_button.event_generate('<Button-1>')
                     time.sleep(0.5)
@@ -3443,7 +3442,8 @@ class CryptoTrader:
                     # 执行等待和刷新
                     self.sleep_refresh("Tenth_trade")
                     if self.Verify_trade_yes():
-                        
+                        # 卖出 NO
+                        self.only_sell_no()
                         # 重置Yes9和No9价格为0.00
                         yes9_price_entry.delete(0, tk.END)
                         yes9_price_entry.insert(0, "0.00")
@@ -3472,8 +3472,6 @@ class CryptoTrader:
                 # 检查No9价格匹配
                 elif 0 <= (no_price - no9_target ) <= 0.04 and no9_target > 0:
                     self.logger.info("No 9价格匹配,执行自动交易")
-                    # 卖出 YES
-                    self.first_sell_yes()
                     # 执行交易操作
                     self.buy_no_button.invoke()
                     time.sleep(0.5)
@@ -3485,6 +3483,8 @@ class CryptoTrader:
                     # 执行等待和刷新
                     self.sleep_refresh("Tenth_trade")
                     if self.Verify_trade_no():
+                        # 卖出 YES
+                        self.only_sell_yes()
                        
                         # 重置Yes9和No9价格为0.00
                         yes9_price_entry.delete(0, tk.END)
@@ -3560,8 +3560,7 @@ class CryptoTrader:
                 # 检查Yes10价格匹配
                 if 0 <= (yes_price - yes10_target ) <= 0.04 and yes10_target > 0:
                     self.logger.info("Yes 10价格匹配,执行自动交易")
-                    # 卖出 NO
-                    self.first_sell_no()
+                    
                     # 执行交易操作
                     self.amount_yes10_button.event_generate('<Button-1>')
                     time.sleep(0.5)
@@ -3571,7 +3570,8 @@ class CryptoTrader:
                     # 执行等待和刷新
                     self.sleep_refresh("Eleventh_trade")
                     if self.Verify_trade_yes():
-                       
+                        # 卖出 NO
+                        self.only_sell_no()
                         # 重置Yes10和No10价格为0.00
                         yes10_price_entry.delete(0, tk.END)
                         yes10_price_entry.insert(0, "0.00")
@@ -3600,8 +3600,7 @@ class CryptoTrader:
                 # 检查No10价格匹配
                 elif 0 <= (no_price - no10_target ) <= 0.04 and no10_target > 0:
                     self.logger.info("No 10价格匹配,执行自动交易")
-                    # 卖出 YES
-                    self.first_sell_yes()
+                    
                     # 执行交易操作
                     self.buy_no_button.invoke()
                     time.sleep(0.5)
@@ -3613,6 +3612,8 @@ class CryptoTrader:
                     # 执行等待和刷新
                     self.sleep_refresh("Eleventh_trade")
                     if self.Verify_trade_no():
+                        # 卖出 YES
+                        self.only_sell_yes()
                         
                         # 重置Yes10和No10价格为0.00
                         yes10_price_entry.delete(0, tk.END)
@@ -3688,8 +3689,7 @@ class CryptoTrader:
                 # 检查Yes11价格匹配
                 if 0 <= (yes_price - yes11_target ) <= 0.04 and yes11_target > 0:
                     self.logger.info("Yes 11价格匹配,执行自动交易")
-                    # 卖出 NO
-                    self.first_sell_no()
+                    
                     # 执行交易操作
                     self.amount_yes11_button.event_generate('<Button-1>')
                     time.sleep(0.5)
@@ -3699,7 +3699,8 @@ class CryptoTrader:
                     # 执行等待和刷新
                     self.sleep_refresh("Twelfth_trade")
                     if self.Verify_trade_yes():
-                        
+                        # 卖出 NO   
+                        self.only_sell_no()
                         # 重置Yes11和No11价格为0.00
                         yes11_price_entry.delete(0, tk.END)
                         yes11_price_entry.insert(0, "0.00")
@@ -3728,8 +3729,7 @@ class CryptoTrader:
                 # 检查No11价格匹配
                 elif 0 <= (no_price - no11_target ) <= 0.04 and no11_target > 0:
                     self.logger.info("No 11价格匹配,执行自动交易")
-                    # 卖出 YES
-                    self.first_sell_yes()
+                    
                     # 执行交易操作
                     self.buy_no_button.invoke()
                     time.sleep(0.5)
@@ -3741,7 +3741,9 @@ class CryptoTrader:
                     # 执行等待和刷新
                     self.sleep_refresh("Twelfth_trade")
                     if self.Verify_trade_no():
-                      
+                        # 卖出 YES
+                        self.only_sell_yes()
+                        
                         # 重置Yes11和No11价格为0.00
                         yes11_price_entry.delete(0, tk.END)
                         yes11_price_entry.insert(0, "0.00")
@@ -3816,8 +3818,7 @@ class CryptoTrader:
                 # 检查Yes12价格匹配
                 if 0 <= (yes_price - yes12_target ) <= 0.04 and yes12_target > 0:
                     self.logger.info("Yes 12价格匹配,执行自动交易")
-                    # 卖出 NO
-                    self.first_sell_no()
+                    
                     # 执行交易操作
                     self.amount_yes12_button.event_generate('<Button-1>')
                     time.sleep(0.5)
@@ -3827,6 +3828,8 @@ class CryptoTrader:
                     # 执行等待和刷新
                     self.sleep_refresh("Thirteenth_trade")
                     if self.Verify_trade_yes():
+                        # 卖出 NO
+                        self.only_sell_no()
                         
                         # 重置Yes12和No12价格为0.00
                         yes12_price_entry.delete(0, tk.END)
@@ -3856,8 +3859,7 @@ class CryptoTrader:
                 # 检查No12价格匹配
                 elif 0 <= (no_price - no12_target ) <= 0.04 and no12_target > 0:
                     self.logger.info("No 12价格匹配,执行自动交易")
-                    # 卖出 YES
-                    self.first_sell_yes()
+                    
                     # 执行交易操作
                     self.buy_no_button.invoke()
                     time.sleep(0.5)
@@ -3869,6 +3871,8 @@ class CryptoTrader:
                     # 执行等待和刷新
                     self.sleep_refresh("Thirteenth_trade")
                     if self.Verify_trade_no():
+                        # 卖出 YES
+                        self.only_sell_yes()
                         
                         # 重置Yes12和No12价格为0.00
                         yes12_price_entry.delete(0, tk.END)
@@ -6014,7 +6018,7 @@ class CryptoTrader:
             self.update_status(f"thirtieth_trade执行失败: {str(e)}")
         finally:
             self.is_trading = False
-            
+
     def Sell_yes(self):
         """当YES14价格等于实时Yes价格时自动卖出"""
         try:
@@ -6254,7 +6258,7 @@ class CryptoTrader:
             amount=0.0,  # 卖出时金额为总持仓
             trade_count=self.sell_count  # 使用卖出计数器
         )
-    
+
     def first_sell_yes(self):
         """只卖出YES"""
         self.position_sell_yes_button.invoke()
@@ -6313,7 +6317,7 @@ class CryptoTrader:
                 self.driver.refresh()  # 刷新页面       
         except Exception as e:
             self.logger.error(f"{operation_name} - first_sell_refresh操作失败: {str(e)}")
-
+          
     def send_trade_email(self, trade_type, price, amount, trade_count):
         """发送交易邮件"""
         max_retries = 3
